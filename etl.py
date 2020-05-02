@@ -14,7 +14,7 @@ def process_song_file(cur, filepath):
     df = pd.read_json(filepath, lines=True)
 
     # insert song record
-    song_data = df[['song_id','title','artist_id','year','duration']]
+    song_data = df[['song_id','title','artist_id','year','duration']].values[0]
     cur.execute(song_table_insert, song_data)
     
     # insert artist record
@@ -37,7 +37,7 @@ def process_log_file(cur, filepath):
     t = pd.to_datetime(df["ts"]/1000, unit='s')
     
     # insert time data records
-    time_data = np.transpose(np.array([df["ts"].values, t.dt.hour.values,t.dt.day.values, t.dt.month.values,t.dt.year.values,t.dt.weekday.values]))
+    time_data = np.transpose(np.array([df["ts"].values, t.dt.hour.values,t.dt.day.values,t.dt.week.values,t.dt.month.values,t.dt.year.values,t.dt.weekday.values]))
     column_labels = ("timestamp","hour","day","WeekOfYear","month","year","WeekDay")
     time_df = pd.DataFrame(data=time_data,columns=column_labels)
 

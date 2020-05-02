@@ -15,8 +15,8 @@ CREATE TABLE IF NOT EXISTS songplay(
     user_id int not null,
     level varchar,
     song_id varchar,
-    artist_id varchar,
-    session_id varchar,
+    artist_id varchar ,
+    session_id varchar ,
     location varchar,
     user_agent varchar
 );""")
@@ -34,7 +34,7 @@ song_table_create = ("""
 CREATE TABLE IF NOT EXISTS songs(
     song_id varchar primary key,
     title varchar,
-    artist_id varchar,
+    artist_id varchar ,
     year int,
     duration numeric
 );""")
@@ -83,7 +83,8 @@ ON CONFLICT (artist_id) DO NOTHING;""")
 
 time_table_insert = ("""
 INSERT INTO time(start_time,hour,day,week,month,year,weekday)
-VALUES(%s,%s,%s,%s,%s,%s,%s);""")
+VALUES(%s,%s,%s,%s,%s,%s,%s)
+ON CONFLICT DO NOTHING;""")
 
 # FIND SONGS
 
